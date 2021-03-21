@@ -51,6 +51,10 @@ const Dashboard = () => {
                 if (student.data.email === email) {
                     return (<>
                         {Subjects.map((subjects) => {
+                            if(!Subjects.length){
+                               console.log('Subjects empty')
+                            }
+                            else{
                             let subject = subjects.data.title;
                             var res = subject.split("_");
                             if (res[0] === student.data.semester) {
@@ -63,6 +67,7 @@ const Dashboard = () => {
                                         </Col>
                                 )
                             }
+                        }
                             return(<div></div>)
                         })}
 
