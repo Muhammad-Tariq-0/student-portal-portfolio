@@ -17,67 +17,67 @@ const Dashboard = () => {
     const [Students, setStudents] = useState([]);
     useEffect(() => {
         async function DataFetch() {
-          ReadStudent('fnAEEvS5qAACCj0sg3LN6t3QLKrNRq7I4sChNJhU')
-            .then((data) => {
-              setStudents(data);
-            })
-            .catch((error) => {
-              console.log(error)
-            })
+            ReadStudent('fnAEEvS5qAACCj0sg3LN6t3QLKrNRq7I4sChNJhU')
+                .then((data) => {
+                    setStudents(data);
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         }
         DataFetch();
-      }, [Students]);
+    }, [Students]);
     //--------------------subjects Reading-------------------------
     const [Subjects, setSubjects] = useState([]);
     useEffect(() => {
         async function DataFetch() {
             ReadSubjects('fnAEEvS5qAACCj0sg3LN6t3QLKrNRq7I4sChNJhU')
-            .then((data) => {
-                setSubjects(data);
-            })
-            .catch((error) => {
-              console.log(error)
-            })
+                .then((data) => {
+                    setSubjects(data);
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         }
         DataFetch();
-      }, [Subjects]);
+    }, [Subjects]);
 
     return (
         <div className='container-fluid'>
             <br />
             <br />
             <Row gutter={[32, 32]}>
-            {Students.map((student) => {
-                if (student.data.email === email) {
-                    return (<>
-                        {Subjects.map((subjects) => {
-                            if(!Subjects.length){
-                               console.log('Subjects empty')
-                            }
-                            else{
-                            let subject = subjects.data.title;
-                            var res = subject.split("_");
-                            if (res[0] === student.data.semester) {
-                                return (                                  
-                                      <Col xs={24} sm={12} md={8} lg={4}>
-                                            <Card className="card">
-                                                <h3>{res[1]}</h3>
-                                                <h4>Credit-Hours: {subjects.data.credit_hours}</h4>
-                                            </Card>
-                                        </Col>
-                                )
-                            }
+                {Students.map((student) => {
+                    if (student.data.email === email) {
+                        if (!Subjects.length) {
+                            console.log('Subjects empty')
                         }
-                            return(<div></div>)
-                        })}
+                        else {
+                            return (<>
+                                {Subjects.map((subjects) => {
+                                    let subject = subjects.data.title;
+                                    var res = subject.split("_");
+                                    if (res[0] === student.data.semester) {
+                                        return (
+                                            <Col xs={24} sm={12} md={8} lg={4}>
+                                                <Card className="card">
+                                                    <h3>{res[1]}</h3>
+                                                    <h4>Credit-Hours: {subjects.data.credit_hours}</h4>
+                                                </Card>
+                                            </Col>
+                                        )
+                                    }
+                                    return (<div></div>)
+                                })}
 
-                    </>)
-                }
-                return(<div></div>)
-            })}
+                            </>)
+                        }
+                    }
+                    return (<div></div>)
+                })}
 
-            <br />
-            <br />
+                <br />
+                <br />
                 <Col xs={24} sm={12} md={12} lg={18}>
                     <Card className="card">
                         <UploadImage />
